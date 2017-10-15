@@ -168,6 +168,7 @@ android/captures/
 
 # Keystore files
 *.jks
+*.keystore
 
 ##################
 # React-Native
