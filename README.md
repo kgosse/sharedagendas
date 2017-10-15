@@ -1,6 +1,6 @@
 # Shared Agendas
 
-## What you should have installed on your machine
+## What should be installed on your machine
 
 • [NodeJS and NPM](https://nodejs.org/en/)
 
@@ -40,7 +40,7 @@ From project dir, run:
 
 
 #### Android
-1. Start an emulator
+1. Start an emulator or just connect an android phone with a usb cable
 2. Build and run
 
 	```sh
