@@ -40,7 +40,7 @@ From project dir, run:
 
 
 #### Android
-1. Start an emulator or just connect an android phone with a usb cable
+1. Start an emulator or just connect an android phone (with an usb cable)
 2. Build and run
 
 	```sh
