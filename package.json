@@ -8,6 +8,7 @@
     "xcode": "open ios/react_native_navigation_bootstrap.xcodeproj"
   },
   "dependencies": {
+    "apsl-react-native-button": "^3.1.0",
     "prop-types": "*",
     "react": "16.0.0-alpha.6",
     "react-native": "0.44.2",

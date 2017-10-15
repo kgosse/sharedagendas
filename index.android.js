@@ -1,1 +1,3 @@
-require('./app');
+/* eslint-disable no-unused-vars */
+
+import './src/app';
