@@ -1,35 +1,27 @@
-# react-native-navigation-bootstrap
+# Shared Agendas
 
-## Bootstrap for a vanilla `react-native-navigation` based project
+## What you should have installed on your machine
 
-Clone this repository to start a project based on
+• [NodeJS and NPM](https://nodejs.org/en/)
 
+• [macOS and Linux setup](https://facebook.github.io/react-native/docs/getting-started.html): make sure to click on "Building Projects with Native Code" and follow the instructions
+
+• [windows setup](https://shift.infinite.red/getting-started-with-react-native-development-on-windows-90d85a72ae65)
+
+If you didn't install react-native-cli, you can do it this way
+
+```sh
+42sh> npm install -g react-native-cli
 ```
-"react-native": "0.44.2",
-"react": "16.0.0-alpha.6",
-"react-native-navigation": "1.x.x"
-```
-
-
-Check `react-native-navigation`'s [documentation](https://github.com/wix/react-native-navigation/wiki) for usage details.
-
 
 ### preparing your project
 
-Download npm dependencies:
 
 ```sh
-npm install
--or-
-yarn
+42sh> git clone git@github.com:kgosse/sharedagendas.git
+42sh> cd sharedagendas
+42sh> npm i
 ```
-
-##### You would need to setup gradle to automatically download android dependencies
-```sh
-./scripts/android_licenses.sh
-```
-
-
 
 ### Running your project
 
