@@ -15,6 +15,12 @@ export default class SignInScreen extends Component {
     this.state = {
       isLoading: false,
     };
+
+    props.navigator.setDrawerEnabled({
+      side: 'left', // the side of the drawer since you can have two, 'left' / 'right'
+      enabled: false // should the drawer be enabled or disabled (locked closed)
+    });
+
   }
 
   openSignUpScreen = () => {
@@ -27,14 +33,18 @@ export default class SignInScreen extends Component {
     });
   };
 
-  toggleButtonState = () => {
-    this.setState({isLoading: true, isDisabled: false});
-    setTimeout(() => {
-      this.setState({isLoading: false, isDisabled: false})
-    }, 2000);
-
+  handleLogin = () => {
+    const {navigator} = this.props;
+    navigator.resetTo({
+      screen: 'app.menu.MyAgendaScreen',
+      title: 'My Agenda',
+      navigatorButtons: {
+        leftButtons: [{
+          id: 'sideMenu'
+        }]
+      }
+    });
   };
-
 
   render() {
     return (
@@ -49,7 +59,7 @@ export default class SignInScreen extends Component {
           <Btn
             style={{backgroundColor: '#F27052', borderColor: '#F27052'}}
             textStyle={{color: '#FFFFFF'}}
-            onPress={this.toggleButtonState}
+            onPress={this.handleLogin}
             {...this.state}
           >
             Login

@@ -12,7 +12,9 @@
     "prop-types": "*",
     "react": "16.0.0-alpha.6",
     "react-native": "0.44.2",
+    "react-native-calendars": "^1.7.1",
     "react-native-navigation": "1.x.x",
-    "react-native-ui-lib": "^2.0.111"
+    "react-native-ui-lib": "^2.0.111",
+    "react-native-vector-icons": "^4.4.2"
   }
 }

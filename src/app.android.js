@@ -8,4 +8,10 @@ Navigation.startSingleScreenApp({
     screen: 'app.auth.SignInScreen',
     title: 'Shared Agendas'
   },
+  drawer: {
+    left: {
+      screen: 'app.drawer',
+    },
+    disableOpenGesture: false
+  }
 });
