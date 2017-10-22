@@ -5,7 +5,7 @@ import Models from './models';
 
 class Store {
   @persist('object', Models.Account) @observable current = new Models.Account;
-  @persist @observable authorized = true;
+  @persist @observable authorized = false;
 
   @action login = (username: string, password: string) => {
     return new Promise((resolve, reject) => {

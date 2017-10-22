@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {View, TextInput, Text, Button} from 'react-native-ui-lib';
-import Btn from 'apsl-react-native-button';
 import {SCREENS, TITLES} from "../../utils/consts";
+import { Button as ADButton } from 'antd-mobile';
 
 export default class SignInScreen extends Component {
 
@@ -66,16 +66,8 @@ export default class SignInScreen extends Component {
         />
         <TextInput floatingPlaceholder text50 placeholder="Password"
                    secureTextEntry dark10 />
-        <View marginT-100 center>
-          {/*<Button text70 white background-orange30 label="Login" />*/}
-          <Btn
-            style={{backgroundColor: '#F27052', borderColor: '#F27052'}}
-            textStyle={{color: '#FFFFFF'}}
-            onPress={this.handleLogin}
-            {...this.state}
-          >
-            Login
-          </Btn>
+        <View marginT-25 center>
+          <ADButton type="primary" onClick={this.handleLogin}>Login</ADButton>
           <Button link text70 orange30 label="Sign Up" marginT-20  onPress={this.openSignUpScreen} />
         </View>
       </View>

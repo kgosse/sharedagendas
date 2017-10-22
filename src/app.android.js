@@ -6,8 +6,20 @@ import {Assets} from 'react-native-ui-lib';
 import {SCREENS} from "./utils/consts";
 import Stores from './stores';
 import Provider from './utils/MobxRnProvider';
+import firebase from 'firebase';
 
 registerScreens(Stores, Provider);
+
+// Initialize Firebase
+const config = {
+  apiKey: "AIzaSyCK1Ofgm1-QNEPBaroJNu0-vC5ve7oW8ac",
+  authDomain: "shared-agendas.firebaseapp.com",
+  databaseURL: "https://shared-agendas.firebaseio.com",
+  projectId: "shared-agendas",
+  storageBucket: "shared-agendas.appspot.com",
+  messagingSenderId: "374790908761"
+};
+firebase.initializeApp(config);
 
 export default class App {
   constructor() {

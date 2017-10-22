@@ -4,13 +4,22 @@ import {registerScreens} from './screens';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Assets} from 'react-native-ui-lib';
 import {SCREENS} from "./utils/consts";
+import Stores from './stores';
+import Provider from './utils/MobxRnProvider';
+import firebase from 'firebase';
 
-let agendaIcon;
-let agendasIcon;
-let optionsIcon;
-let plusIcon;
+registerScreens(Stores, Provider);
 
-registerScreens();
+// Initialize Firebase
+const config = {
+  apiKey: "AIzaSyCK1Ofgm1-QNEPBaroJNu0-vC5ve7oW8ac",
+  authDomain: "shared-agendas.firebaseapp.com",
+  databaseURL: "https://shared-agendas.firebaseio.com",
+  projectId: "shared-agendas",
+  storageBucket: "shared-agendas.appspot.com",
+  messagingSenderId: "374790908761"
+};
+firebase.initializeApp(config);
 
 export default class App {
   constructor() {
@@ -34,10 +43,6 @@ export default class App {
           Icon.getImageSource('md-add'),
         ]
       ).then((values) => {
-        agendaIcon = values[0];
-        agendasIcon = values[1];
-        optionsIcon = values[2];
-        plusIcon = values[3];
         Assets.loadAssetsGroup('icons', {
           calendar: values[0],
           people: values[1],
