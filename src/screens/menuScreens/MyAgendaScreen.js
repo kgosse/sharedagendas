@@ -13,7 +13,7 @@ export default class MyAgendaScreen extends Component {
     rightButtons: [
       {
         title: 'Event',
-        id: 'Event', // id for this button, given in onNavigatorEvent(event) to help understand which button was clicked
+        id: 'Event',
       }
     ]
   };
@@ -25,33 +25,41 @@ export default class MyAgendaScreen extends Component {
       items: {}
     };
 
-    props.navigator.setDrawerEnabled({
-      side: 'left', // the side of the drawer since you can have two, 'left' / 'right'
-      enabled: true // should the drawer be enabled or disabled (locked closed)
-    });
-
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
-
   }
 
   componentWillMount() {
-    navigator = this.props.navigator;
+/*    const {navigator} = this.props;
+    navigator.resetTo({
+      screen: SCREENS.signin,
+      title: TITLES.signin,
+      animated: false,
+      backButtonHidden: true,
+    });*/
   }
 
-  componentWillUnmount() {
-    navigator = null;
-  }
-
-  onNavigatorEvent(event) { // this is the onPress handler for the two buttons together
+  onNavigatorEvent(event) {
     const {navigator} = this.props;
-    if (event.type == 'NavBarButtonPress') { // this is the event type for button presses
-      if (event.id == 'Event') { // this is the same id field from the static navigatorButtons definition
+    if (event.type == 'NavBarButtonPress') {
+      if (event.id == 'Event') {
         navigator.push({
           screen: SCREENS.event,
           title: TITLES.event,
-          // overrideBackPress: row.overrideBackPress,
-          // backButtonTitle: '',
         });
+      }
+    } else {
+      switch(event.id) {
+        case 'willAppear':
+        case 'didAppear':
+          break;
+        case 'willDisappear':
+/*          navigator.toggleTabs({
+            to: 'hidden',
+            animated: false
+          });*/
+          break;
+        case 'didDisappear':
+          break;
       }
     }
   }
@@ -80,6 +88,7 @@ export default class MyAgendaScreen extends Component {
         //renderDay={(day, item) => (<Text>{day ? day.day: 'item'}</Text>)}
       />
     );
+// return <View></View>
   }
 
   loadItems = (day) => {

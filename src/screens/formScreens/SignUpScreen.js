@@ -11,11 +11,29 @@ export default class SignUpScreen extends Component {
       showToast: false
     };
 
-    props.navigator.setDrawerEnabled({
-      side: 'left', // the side of the drawer since you can have two, 'left' / 'right'
-      enabled: false // should the drawer be enabled or disabled (locked closed)
-    });
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+  }
 
+  onNavigatorEvent(event) {
+    const {navigator} = this.props;
+    switch(event.id) {
+      case 'willAppear':
+        navigator.toggleTabs({
+          to: 'hidden',
+          animated: false
+        });
+        break;
+      case 'didAppear':
+        break;
+      case 'willDisappear':
+        navigator.toggleTabs({
+          to: 'hidden',
+          animated: false
+        });
+        break;
+      case 'didDisappear':
+        break;
+    }
   }
 
   toggleButtonState = () => {
@@ -27,6 +45,7 @@ export default class SignUpScreen extends Component {
   };
 
   render() {
+
     return (
       <View paddingH-25 paddingT-20>
         <Text blue50 text20>Registration</Text>

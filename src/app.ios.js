@@ -12,7 +12,6 @@ let plusIcon;
 
 registerScreens();
 
-
 export default class App {
   constructor() {
 

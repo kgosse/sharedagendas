@@ -17,11 +17,29 @@ export default class SignInScreen extends Component {
       isLoading: false,
     };
 
-    props.navigator.setDrawerEnabled({
-      side: 'left', // the side of the drawer since you can have two, 'left' / 'right'
-      enabled: false // should the drawer be enabled or disabled (locked closed)
-    });
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+  }
 
+  onNavigatorEvent(event) {
+    const {navigator} = this.props;
+    switch(event.id) {
+      case 'willAppear':
+        navigator.toggleTabs({
+          to: 'hidden',
+          animated: false
+        });
+        break;
+      case 'didAppear':
+        break;
+      case 'willDisappear':
+        navigator.toggleTabs({
+          to: 'hidden',
+          animated: false
+        });
+        break;
+      case 'didDisappear':
+        break;
+    }
   }
 
   openSignUpScreen = () => {
@@ -29,8 +47,6 @@ export default class SignInScreen extends Component {
     navigator.push({
       screen: SCREENS.signup,
       title: TITLES.signup,
-      // overrideBackPress: row.overrideBackPress,
-      // backButtonTitle: '',
     });
   };
 
