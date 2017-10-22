@@ -4,14 +4,10 @@ import {registerScreens} from './screens';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Assets} from 'react-native-ui-lib';
 import {SCREENS} from "./utils/consts";
+import Stores from './stores';
+import Provider from './utils/MobxRnProvider';
 
-let agendaIcon;
-let agendasIcon;
-let optionsIcon;
-let plusIcon;
-
-registerScreens();
-
+registerScreens(Stores, Provider);
 
 export default class App {
   constructor() {
@@ -35,10 +31,6 @@ export default class App {
           Icon.getImageSource('md-add'),
         ]
       ).then((values) => {
-        agendaIcon = values[0];
-        agendasIcon = values[1];
-        optionsIcon = values[2];
-        plusIcon = values[3];
         Assets.loadAssetsGroup('icons', {
           calendar: values[0],
           people: values[1],

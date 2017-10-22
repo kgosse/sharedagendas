@@ -5,8 +5,10 @@ import {
   StyleSheet,
 } from 'react-native';
 import {Agenda} from 'react-native-calendars';
+import { inject, observer } from 'mobx-react/native';
 import {SCREENS, TITLES} from "../../utils/consts";
 
+@inject('App', 'Account') @observer
 export default class MyAgendaScreen extends Component {
 
   static navigatorButtons = {
@@ -29,17 +31,19 @@ export default class MyAgendaScreen extends Component {
   }
 
   componentWillMount() {
-/*    const {navigator} = this.props;
-    navigator.resetTo({
-      screen: SCREENS.signin,
-      title: TITLES.signin,
-      animated: false,
-      backButtonHidden: true,
-    });*/
+    const {navigator, Account} = this.props;
+    if (!Account.authorized) {
+      navigator.resetTo({
+        screen: SCREENS.signin,
+        title: TITLES.signin,
+        animated: false,
+        backButtonHidden: true,
+      });
+    }
   }
 
   onNavigatorEvent(event) {
-    const {navigator} = this.props;
+    const {navigator, Account} = this.props;
     if (event.type == 'NavBarButtonPress') {
       if (event.id == 'Event') {
         navigator.push({
@@ -53,10 +57,12 @@ export default class MyAgendaScreen extends Component {
         case 'didAppear':
           break;
         case 'willDisappear':
-/*          navigator.toggleTabs({
-            to: 'hidden',
-            animated: false
-          });*/
+          if (!Account.authorized) {
+            navigator.toggleTabs({
+              to: 'hidden',
+              animated: false
+            });
+          }
           break;
         case 'didDisappear':
           break;
@@ -65,6 +71,10 @@ export default class MyAgendaScreen extends Component {
   }
 
   render() {
+    const {Account} = this.props;
+    if (!Account.authorized) {
+      return (<View></View>);
+    }
     return (
       <Agenda
         items={this.state.items}
@@ -88,7 +98,6 @@ export default class MyAgendaScreen extends Component {
         //renderDay={(day, item) => (<Text>{day ? day.day: 'item'}</Text>)}
       />
     );
-// return <View></View>
   }
 
   loadItems = (day) => {
