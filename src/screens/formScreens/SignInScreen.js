@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {View, TextInput, Text, Button} from 'react-native-ui-lib';
-import Btn from 'apsl-react-native-button'
+import Btn from 'apsl-react-native-button';
+import {SCREENS, TITLES} from "../../utils/consts";
 
 export default class SignInScreen extends Component {
 
@@ -26,8 +27,8 @@ export default class SignInScreen extends Component {
   openSignUpScreen = () => {
     const {navigator} = this.props;
     navigator.push({
-      screen: 'app.auth.SignUpScreen',
-      title: 'Shared Agendas',
+      screen: SCREENS.signup,
+      title: TITLES.signup,
       // overrideBackPress: row.overrideBackPress,
       // backButtonTitle: '',
     });
@@ -36,13 +37,8 @@ export default class SignInScreen extends Component {
   handleLogin = () => {
     const {navigator} = this.props;
     navigator.resetTo({
-      screen: 'app.menu.MyAgendaScreen',
-      title: 'My Agenda',
-      navigatorButtons: {
-        leftButtons: [{
-          id: 'sideMenu'
-        }]
-      }
+      screen: SCREENS.agenda,
+      title: TITLES.agenda,
     });
   };
 

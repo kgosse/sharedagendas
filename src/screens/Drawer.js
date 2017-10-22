@@ -23,16 +23,21 @@ const items = [
     text: 'My Shared Agenda',
     badge: 1
   },
+  {
+    id: 3,
+    icon: 'address-book',
+    text: 'My Contacts'
+  }
 ];
 
 const items2 = [
   {
-    id: 3,
+    id: 4,
     icon: 'user',
     text: 'My infos',
   },
   {
-    id: 4,
+    id: 5,
     icon: 'sign-out',
     text: 'Log out',
   }

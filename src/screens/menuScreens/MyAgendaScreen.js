@@ -2,13 +2,25 @@ import React, { Component } from 'react';
 import {
   Text,
   View,
-  StyleSheet
+  StyleSheet,
 } from 'react-native';
 import {Agenda} from 'react-native-calendars';
+import {SCREENS, TITLES} from "../../utils/consts";
 
 export default class MyAgendaScreen extends Component {
+
+  static navigatorButtons = {
+    rightButtons: [
+      {
+        title: 'Event',
+        id: 'Event', // id for this button, given in onNavigatorEvent(event) to help understand which button was clicked
+      }
+    ]
+  };
+
   constructor(props) {
     super(props);
+
     this.state = {
       items: {}
     };
@@ -22,13 +34,23 @@ export default class MyAgendaScreen extends Component {
 
   }
 
+  componentWillMount() {
+    navigator = this.props.navigator;
+  }
+
+  componentWillUnmount() {
+    navigator = null;
+  }
+
   onNavigatorEvent(event) { // this is the onPress handler for the two buttons together
+    const {navigator} = this.props;
     if (event.type == 'NavBarButtonPress') { // this is the event type for button presses
-      if (event.id == 'sideMenu') { // this is the same id field from the static navigatorButtons definition
-        this.props.navigator.toggleDrawer({
-          side: 'left', // the side of the drawer since you can have two, 'left' / 'right'
-          animated: true, // does the toggle have transition animation or does it happen immediately (optional)
-          to: 'open' // optional, 'open' = open the drawer, 'closed' = close it, missing = the opposite of current state
+      if (event.id == 'Event') { // this is the same id field from the static navigatorButtons definition
+        navigator.push({
+          screen: SCREENS.event,
+          title: TITLES.event,
+          // overrideBackPress: row.overrideBackPress,
+          // backButtonTitle: '',
         });
       }
     }
@@ -61,7 +83,6 @@ export default class MyAgendaScreen extends Component {
   }
 
   loadItems = (day) => {
-    console.log(day);
     if (!day)
       return;
     setTimeout(() => {
@@ -124,5 +145,5 @@ const styles = StyleSheet.create({
     height: 15,
     flex:1,
     paddingTop: 30
-  }
+  },
 });

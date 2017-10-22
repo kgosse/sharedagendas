@@ -26,7 +26,6 @@ export default class SignUpScreen extends Component {
 
   };
 
-
   render() {
     return (
       <View paddingH-25 paddingT-20>
