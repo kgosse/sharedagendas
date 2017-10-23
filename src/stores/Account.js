@@ -17,7 +17,17 @@ class Store {
         reject({ message: 'Something is wrong with input data :(' });
       }
     });
-  }
+  };
+
+  @action setAuthorized = (val) => {
+    this.authorized = val;
+  };
+
+  @action updateAccount = (val) => {
+    this.current.firstname = val.firstname;
+    this.current.lastname = val.lastname;
+    this.current.uid = val.uid;
+  };
 
   @action logout = () => {
     return new Promise((resolve, reject) => {

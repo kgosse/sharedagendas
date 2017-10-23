@@ -55,6 +55,14 @@ export default class MyAgendaScreen extends Component {
       switch(event.id) {
         case 'willAppear':
         case 'didAppear':
+          if (!Account.authorized) {
+            navigator.resetTo({
+              screen: SCREENS.signin,
+              title: TITLES.signin,
+              animated: false,
+              backButtonHidden: true,
+            });
+          }
           break;
         case 'willDisappear':
           if (!Account.authorized) {
