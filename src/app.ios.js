@@ -8,6 +8,8 @@ import Stores from './stores';
 import Provider from './utils/MobxRnProvider';
 import firebase from 'firebase';
 
+console.ignoredYellowBox = ['Setting a timer'];
+
 registerScreens(Stores, Provider);
 
 // Initialize Firebase

@@ -4,7 +4,7 @@ import {View, TextInput, Text, Button, Toast, Colors} from 'react-native-ui-lib'
 import {SCREENS, TITLES} from "../../utils/consts";
 import { Button as ADButton } from 'antd-mobile';
 import { inject, observer } from 'mobx-react/native';
-import firebase from 'firebase';
+import {SERVICE_STATES} from "../../utils/consts";
 
 @inject('Account') @observer
 export default class SignInScreen extends Component {
@@ -12,6 +12,11 @@ export default class SignInScreen extends Component {
   static propTypes = {
     navigator: PropTypes.object,
   };
+
+  static navigatorStyle = {
+    tabBarHidden: true
+  };
+
 
   constructor(props) {
     super(props);
@@ -21,31 +26,6 @@ export default class SignInScreen extends Component {
       error: null
     };
 
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
-  }
-
-  onNavigatorEvent(event) {
-    const {navigator, Account} = this.props;
-    switch(event.id) {
-      case 'willAppear':
-        navigator.toggleTabs({
-          to: 'hidden',
-          animated: false
-        });
-        break;
-      case 'didAppear':
-        break;
-      case 'willDisappear':
-        if (!Account.authorized) {
-          navigator.toggleTabs({
-            to: 'hidden',
-            animated: false
-          });
-        }
-        break;
-      case 'didDisappear':
-        break;
-    }
   }
 
   openSignUpScreen = () => {
@@ -53,6 +33,9 @@ export default class SignInScreen extends Component {
     navigator.push({
       screen: SCREENS.signup,
       title: TITLES.signup,
+      navigatorStyle: {
+        tabBarHidden: true
+      }
     });
   };
 
@@ -60,24 +43,19 @@ export default class SignInScreen extends Component {
     const {navigator, Account} = this.props;
     const email = this.email.state.value;
     const password = this.password.state.value;
-    this.setState({error: null, isLoading: true});
-    firebase.auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(() => {
-        this.setState({error: null, isLoading: false});
-        Account.setAuthorized(true);
-        Account.updateAccount(firebase.auth().currentUser);
-        navigator.resetTo({
-          screen: SCREENS.agenda,
-          title: TITLES.agenda,
-        });
-      })
-      .catch(function(error) {
-        this.setState({error: error.message, isLoading: false});
+    Account.login(email, password, () => {
+      navigator.resetTo({
+        screen: SCREENS.agenda,
+        title: TITLES.agenda,
+        navigatorStyle: {
+          tabBarHidden: false
+        }
       });
+    });
   };
 
   render() {
+    const {Account} = this.props;
 
     return (
       <View paddingH-25 paddingT-60>
@@ -88,19 +66,19 @@ export default class SignInScreen extends Component {
                    secureTextEntry dark10 />
         <View marginT-25 center>
           <ADButton type="primary" onClick={this.handleLogin}
-                    disabled={this.state.isLoading}
-                    loading={this.state.isLoading}>
+                    disabled={Account.state === SERVICE_STATES.pending}
+                    loading={Account.state === SERVICE_STATES.pending}>
             Login
           </ADButton>
           <Button link text70 orange30 label="Sign Up" marginT-20  onPress={this.openSignUpScreen} />
         </View>
         <Toast
-          visible={!!this.state.error}
-          message={this.state.error}
+          visible={Account.errorMessage && Account.state === SERVICE_STATES.error}
+          message={Account.errorMessage}
           position="top"
           allowDismiss
           backgroundColor={Colors.red10}
-          onDismiss={() => this.setState({error: null})}
+          onDismiss={Account.cancelError}
         />
       </View>
     );

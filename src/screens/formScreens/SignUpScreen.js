@@ -4,6 +4,11 @@ import { Button as ADButton } from 'antd-mobile';
 import firebase from 'firebase';
 
 export default class SignUpScreen extends Component {
+
+  static navigatorStyle = {
+    tabBarHidden: true
+  };
+
   constructor(props) {
     super(props);
 
@@ -13,29 +18,6 @@ export default class SignUpScreen extends Component {
       error: null
     };
 
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
-  }
-
-  onNavigatorEvent(event) {
-    const {navigator} = this.props;
-    switch(event.id) {
-      case 'willAppear':
-        navigator.toggleTabs({
-          to: 'hidden',
-          animated: false
-        });
-        break;
-      case 'didAppear':
-        break;
-      case 'willDisappear':
-        navigator.toggleTabs({
-          to: 'hidden',
-          animated: false
-        });
-        break;
-      case 'didDisappear':
-        break;
-    }
   }
 
   handleSignUp = () => {
@@ -44,19 +26,34 @@ export default class SignUpScreen extends Component {
     const lastname = this.lastname.state.value;
     const email = this.email.state.value;
     const password = this.password.state.value;
+    const database = firebase.database();
     firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
-      firebase.database().ref('users/' + user.uid).set({
+      const agendaKey = database.ref().child('agendas').push().key;
+      const userData = {
         firstname,
         lastname,
         email,
-        password
-      }, error => {
+        password,
+        agenda: agendaKey
+      };
+      const agendaData = {
+        user: user.uid,
+        title: 'agenda',
+        type: 'normal',
+        events: true
+      };
+      const updates = {};
+      updates['/users/' + user.uid] = userData;
+      updates['/agendas/' + agendaKey] = agendaData;
+
+      database.ref().update(updates, error => {
         if (error) {
           this.setState({showToast: true, isLoading: false, error: error});
         } else {
           this.setState({showToast: true, isLoading: false, error: null});
         }
       });
+
     }, (error) => {
       this.setState({showToast: true, isLoading: false, error: error.message});
     });

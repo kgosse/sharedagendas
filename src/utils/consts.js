@@ -16,3 +16,10 @@ export const TITLES = {
   event:         'Event',
   agenda:        'Agenda',
 };
+
+export const SERVICE_STATES = {
+  initial: 'INITIAL',
+  pending: 'PENDING',
+  done: 'DONE',
+  error: 'ERROR',
+};

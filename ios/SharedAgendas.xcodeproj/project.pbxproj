@@ -832,7 +832,6 @@
 				PRODUCT_NAME = sharedAgendas;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/sharedAgendas\"",
 				);
 			};
 			name = Debug;
@@ -856,7 +855,6 @@
 				PRODUCT_NAME = sharedAgendas;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/sharedAgendas\"",
 				);
 			};
 			name = Release;
