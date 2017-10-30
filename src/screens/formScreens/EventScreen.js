@@ -6,7 +6,7 @@ import DatePicker from 'react-native-datepicker';
 import { Button } from 'antd-mobile';
 import {SERVICE_STATES} from "../../utils/consts";
 
-@inject('Events') @observer
+@inject('Events', 'Agendas') @observer
 export default class EventScreen extends Component {
 
   static navigatorStyle = {
@@ -33,15 +33,21 @@ export default class EventScreen extends Component {
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
+  refresh = () => {
+    const {Events, Agendas} = this.props;
+    Events.initState();
+    Agendas.getUserAgenda();
+  };
+
   onNavigatorEvent(event) {
-    const {Events} = this.props;
     switch(event.id) {
       case 'willAppear':
       case 'didAppear':
       case 'willDisappear':
         break;
       case 'didDisappear':
-        Events.initState();
+        // Events.initState();
+        this.refresh();
         break;
     }
   }

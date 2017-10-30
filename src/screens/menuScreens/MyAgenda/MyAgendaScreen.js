@@ -5,12 +5,12 @@ import {
 } from 'react-native';
 import {Agenda} from 'react-native-calendars';
 import { inject, observer } from 'mobx-react/native';
-import {SCREENS, TITLES} from "../../utils/consts";
+import {SCREENS, TITLES} from "../../../utils/consts";
 import {Text, LoaderScreen, Colors, Avatar, AvatarHelper} from 'react-native-ui-lib';
-import {SERVICE_STATES} from "../../utils/consts";
+import {SERVICE_STATES} from "../../../utils/consts";
 import moment from 'moment';
 
-@inject('Agendas', 'Account') @observer
+@inject('Agendas', 'Account', 'Users') @observer
 export default class MyAgendaScreen extends Component {
 
   static navigatorButtons = {
@@ -38,7 +38,7 @@ export default class MyAgendaScreen extends Component {
   }
 
   componentWillMount() {
-    const {navigator, Account, Agendas} = this.props;
+    const {navigator, Account, Agendas, Users} = this.props;
     if (!Account.authorized) {
       navigator.resetTo({
         screen: SCREENS.signin,
@@ -46,9 +46,14 @@ export default class MyAgendaScreen extends Component {
         animated: false,
         backButtonHidden: true,
       });
-    } else if (!Agendas.userAgenda) {
-      Agendas.getUserAgenda(Account.current.agenda);
-      this.setState({requestAgenda: false});
+    } else{
+      if (!Agendas.userAgenda) {
+        this.setState({requestAgenda: false});
+        Agendas.getUserAgenda(Account.current.agenda);
+      }
+      if (Users.state !== SERVICE_STATES.done) {
+        Users.getUsers();
+      }
     }
   }
 
@@ -78,7 +83,8 @@ export default class MyAgendaScreen extends Component {
               animated: false,
               backButtonHidden: true,
             });
-          } else if (this.state.requestAgenda) {
+          } else if (this.state.requestAgenda && !Agendas.userAgenda) {
+            this.setState({requestAgenda: false});
             Agendas.getUserAgenda(Account.current.agenda);
           }
           break;

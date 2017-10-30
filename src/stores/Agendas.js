@@ -12,8 +12,41 @@ class Store {
   @observable state = SERVICE_STATES.pending;
   @observable error = null;
   @observable events = {};
+  @observable saState = SERVICE_STATES.pending;
+  @observable saError = null;
+
+  @action createSharedAgenda = ({name, users, user}) => {
+    this.state = SERVICE_STATES.pending;
+    const database = firebase.database();
+    const agendaKey = database.ref().child('agendas').push().key;
+    let updates = {};
+    const agendaData = {
+      user: user.uid,
+      title: name,
+      type: 'shared',
+      events: true,
+      users: users.reduce(acc, val => {
+        return {
+          ...acc,
+          [val]: true
+        }
+      }, {[user.uid]: true})
+    };
+
+    updates['/agendas/' + agendaKey] = agendaData;
+
+    database.ref().update(updates, error => {
+      if (error) {
+        this.setState({showToast: true, isLoading: false, error: error});
+      } else {
+        this.setState({showToast: true, isLoading: false, error: null});
+      }
+    });
+
+  };
 
   @action getUserAgenda = (agendaId) => {
+    agendaId = agendaId || this.current;
     this.state = SERVICE_STATES.pending;
     const database = firebase.database();
     database.ref(`agendas/${agendaId}`).once('value').then((snapshot) => {
@@ -26,7 +59,7 @@ class Store {
   @action.bound
   fetchUserAgendaSuccess(data, id) {
     this.state = SERVICE_STATES.done;
-    this.userAgenda = data;
+    this.userAgenda = {...data};
     this.agendas = {
       ...this.agendas,
       [id]: {
@@ -41,6 +74,35 @@ class Store {
     this.state = SERVICE_STATES.error;
     this.userAgenda = {};
     this.error = error;
+  }
+
+  @action getSharedAgendas = (userId) => {
+    this.saState = SERVICE_STATES.pending;
+    const database = firebase.database();
+    database.ref('agendas').orderByChild('type').equalTo('shared').once('value').then((snapshot) => {
+      this.fetchSharedAgendasSuccess(snapshot.val());
+    }).catch(error => {
+      this.fetchSharedAgendasError(error.message);
+    });
+  };
+
+  @action.bound
+  fetchSharedAgendasSuccess(data) {
+    this.saState = SERVICE_STATES.done;
+    this.saError = null;
+    this.sharedAgendas = data ? {...data} : null;
+    this.agendas = {
+      ...this.agendas,
+      ...data
+    };
+  }
+
+  @action.bound
+  fetchSharedAgendasError(error) {
+    this.saState = SERVICE_STATES.error;
+    this.sharedAgendas = {};
+    this.saError = error;
+    console.warn(error);
   }
 
   @action setCurrent = (id) => {

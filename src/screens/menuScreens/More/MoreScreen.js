@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import {StyleSheet, ScrollView} from 'react-native';
 import PropTypes from 'prop-types';
 import {View, Text, Toast, Colors} from 'react-native-ui-lib';
-import Row from '../../components/Row';
+import Row from '../../ui/Row';
 import { inject, observer } from 'mobx-react/native';
 import firebase from 'firebase';
+import {SCREENS, TITLES} from "../../../utils/consts";
 
 @inject('Account') @observer
 export default class MoreScreen extends Component {
@@ -36,6 +37,14 @@ export default class MoreScreen extends Component {
     });
   };
 
+  openPeopleScreen = () => {
+    const {navigator} = this.props;
+    navigator.push({
+      screen: SCREENS.people,
+      title: TITLES.people,
+    });
+  };
+
   nothing = () => {};
 
   render() {
@@ -44,6 +53,7 @@ export default class MoreScreen extends Component {
         <Row title={'Meteo'} onPress={this.nothing}/>
         <Row title={'Sync with google calendar'} onPress={this.nothing}/>
         <Row title={'Account'} onPress={this.nothing}/>
+        <Row title={'Users'} onPress={this.openPeopleScreen}/>
         <Row title={'Log out'} onPress={this.handleLogout}/>
         <Toast
           visible={!!this.state.logoutError}
