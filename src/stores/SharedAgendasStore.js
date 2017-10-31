@@ -123,11 +123,11 @@ class sharedAgendasStore {
     this.getShareAgendaRequest.error = error;
   }
 
-  get userSharedAgendasLength() {
+  @computed get userSharedAgendasLength() {
     return (id) => this.agendas.filter(a => a.users[id]).length;
   }
 
-  get getUserSharedAgendas() {
+  @computed get getUserSharedAgendas() {
     return (id) => this.agendas.filter(a => a.users[id]);
   }
 }

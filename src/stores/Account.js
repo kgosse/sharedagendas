@@ -48,11 +48,13 @@ class Store {
     this.authorized = val;
   };
 
-  @action updateAccount = (val, uid) => {
+  @action.bound
+  updateAccount = (val, uid) => {
     this.current.firstname = val.firstname;
     this.current.lastname = val.lastname;
     this.current.uid = val.uid || uid;
     this.current.agenda = val.agenda;
+    this.current.email = val.email;
   };
 
   @action logout = () => {

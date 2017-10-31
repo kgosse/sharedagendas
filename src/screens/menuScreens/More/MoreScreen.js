@@ -53,6 +53,14 @@ export default class MoreScreen extends Component {
     });
   };
 
+  openAccountScreen = () => {
+    const {navigator} = this.props;
+    navigator.push({
+      screen: SCREENS.account,
+      title: TITLES.account,
+    });
+  };
+
   nothing = () => {};
 
   render() {
@@ -60,7 +68,7 @@ export default class MoreScreen extends Component {
       <ScrollView style={styles.container}>
         <Row title={'Meteo'} onPress={this.openMeteoScreen}/>
         {/*<Row title={'Sync with google calendar'} onPress={this.nothing}/>*/}
-        {/*<Row title={'Account'} onPress={this.nothing}/>*/}
+        <Row title={'Account'} onPress={this.openAccountScreen}/>
         <Row title={'Users'} onPress={this.openPeopleScreen}/>
         <Row title={'Log out'} onPress={this.handleLogout}/>
         <Toast

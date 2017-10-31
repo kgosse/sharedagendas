@@ -6,6 +6,7 @@ class Account {
   @persist @observable lastname = null;
   @persist @observable uid = null;
   @persist @observable agenda = null;
+  @persist @observable email = null;
 }
 
 export default Account;

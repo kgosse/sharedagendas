@@ -45,9 +45,7 @@ export default class SharedAgendasScreen extends Component {
         case 'willAppear':
           break;
         case 'didAppear':
-          if (SharedAgendas.agendas.length === 0 && SharedAgendas.getShareAgendaRequest.state !== SERVICE_STATES.done) {
             SharedAgendas.getSharedAgendas();
-          }
           break;
         case 'willDisappear':
         case 'didDisappear':

@@ -8,6 +8,7 @@ import MyAgendaScreen from './menuScreens/MyAgenda/MyAgendaScreen';
 import SharedAgendasScreen from './menuScreens/SharedAgendas/SharedAgendasScreen';
 import AgendaOptionsScreen from './menuScreens/SharedAgendas/AgendaOptionsScreen';
 import MoreScreen from './menuScreens/More/MoreScreen';
+import AccountScreen from './menuScreens/More/AccountScreen';
 import MeteoSearchScreen from './menuScreens/More/Meteo/MeteoSearchScreen';
 import TodayScreen from './menuScreens/More/Meteo/TodayScreen';
 import ForecastScreen from './menuScreens/More/Meteo/ForecastScreen';
@@ -29,6 +30,7 @@ export function registerScreens(store, Provider) {
   Navigation.registerComponent(SCREENS.forecast, () => ForecastScreen, store, Provider);
   Navigation.registerComponent(SCREENS.more, () => MoreScreen, store, Provider);
   Navigation.registerComponent(SCREENS.meteosearch, () => MeteoSearchScreen, store, Provider);
+  Navigation.registerComponent(SCREENS.account, () => AccountScreen, store, Provider);
   Navigation.registerComponent(SCREENS.drawer, () => Drawer, store, Provider);
   Navigation.registerComponent(SCREENS.agendaview, () => AgendaScreen, store, Provider);
   Navigation.registerComponent(SCREENS.people, () => PeopleScreen, store, Provider);
