@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {ScrollView, StyleSheet, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
 import {Text, View, LoaderScreen, Colors, Typography} from 'react-native-ui-lib';
-import Row from '../../ui/Row';
+import Row from '../../components/ui/Row';
 import { inject, observer } from 'mobx-react/native';
 import { SCREENS, SERVICE_STATES, TITLES } from "../../../utils/consts";
 

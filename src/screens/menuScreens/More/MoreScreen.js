@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {StyleSheet, ScrollView} from 'react-native';
 import PropTypes from 'prop-types';
 import {View, Text, Toast, Colors} from 'react-native-ui-lib';
-import Row from '../../ui/Row';
+import Row from '../../components/ui/Row';
 import { inject, observer } from 'mobx-react/native';
 import firebase from 'firebase';
 import {SCREENS, TITLES} from "../../../utils/consts";
@@ -45,12 +45,20 @@ export default class MoreScreen extends Component {
     });
   };
 
+  openMeteoScreen = () => {
+    const {navigator} = this.props;
+    navigator.push({
+      screen: SCREENS.meteosearch,
+      title: TITLES.meteosearch,
+    });
+  };
+
   nothing = () => {};
 
   render() {
     return (
       <ScrollView style={styles.container}>
-        <Row title={'Meteo'} onPress={this.nothing}/>
+        <Row title={'Meteo'} onPress={this.openMeteoScreen}/>
         <Row title={'Sync with google calendar'} onPress={this.nothing}/>
         <Row title={'Account'} onPress={this.nothing}/>
         <Row title={'Users'} onPress={this.openPeopleScreen}/>

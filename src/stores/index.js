@@ -7,6 +7,7 @@ import Agendas from './Agendas';
 import Events from './Events';
 import Users from './Users';
 import SharedAgendas from './SharedAgendasStore';
+import Weather from './Weather';
 
 // AsyncStorage.clear();
 
@@ -18,7 +19,8 @@ const stores = {
   Agendas,
   Events,
   Users,
-  SharedAgendas
+  SharedAgendas,
+  Weather
 };
 
 // you can hydrate stores here with mobx-persist

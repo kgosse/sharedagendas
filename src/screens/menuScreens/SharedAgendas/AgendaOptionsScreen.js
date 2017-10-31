@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {StyleSheet, ScrollView, Alert} from 'react-native';
 import PropTypes from 'prop-types';
 import {View, Text, Toast, Colors} from 'react-native-ui-lib';
-import Row from '../../ui/Row';
+import Row from '../../components/ui/Row';
 import { inject, observer } from 'mobx-react/native';
 import firebase from 'firebase';
 import {SCREENS, TITLES} from "../../../utils/consts";
