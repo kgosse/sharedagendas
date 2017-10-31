@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ListView, ScrollView, StyleSheet, TouchableOpacity} from 'react-native';
+import {ListView, StyleSheet, TouchableOpacity} from 'react-native';
 import {AvatarHelper, Avatar, Colors, Modal, View, Text, Constants, Typography} from 'react-native-ui-lib';
 import { inject, observer } from 'mobx-react/native';
 import {SCREENS} from "../../../utils/consts";

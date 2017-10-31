@@ -43,7 +43,7 @@ class Store {
     console.warn(error);
   }
 
-  @action toggleUser = (user) => {
+  @action toggleUser = (user, cb) => {
     this.users = this.users.map(u => {
       if (u.uid === user.uid) {
         return {
@@ -52,7 +52,8 @@ class Store {
         }
       }
       return {...u};
-    })
+    });
+    cb && cb();
   };
 
   @computed get getUser() {
