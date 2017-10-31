@@ -36,7 +36,7 @@ export default class EventScreen extends Component {
   refresh = () => {
     const {Events, Agendas} = this.props;
     Events.initState();
-    Agendas.getUserAgenda();
+    // Agendas.getUserAgenda();
   };
 
   onNavigatorEvent(event) {

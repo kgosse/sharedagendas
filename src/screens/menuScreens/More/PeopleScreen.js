@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ScrollView, StyleSheet, TouchableOpacity} from 'react-native';
+import {ListView, ScrollView, StyleSheet, TouchableOpacity} from 'react-native';
 import {AvatarHelper, Avatar, Colors, Modal, View, Text, Constants, Typography} from 'react-native-ui-lib';
 import { inject, observer } from 'mobx-react/native';
 import {SCREENS} from "../../../utils/consts";
@@ -14,7 +14,10 @@ export default class PeopleScreen extends Component {
   constructor(props) {
     super(props);
 
+    const dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1.day !== r2.day});
+
     this.state = {
+      dataSource: dataSource.cloneWithRows(props.Users.getOtherUsers(props.Account.current.uid))
     };
   }
 
@@ -33,29 +36,25 @@ export default class PeopleScreen extends Component {
     });
   };
 
-  render() {
-    const {Users} = this.props;
-    const people = Users.users;
-
+  renderRow = (item, sectionId, rowId) => {
+    const name = item.firstname + ' ' + item.lastname;
+    const initials = AvatarHelper.getInitials(name);
     return (
-      <ScrollView contentContainerStyle={styles.people}>
-        {
-          people.map((p, i) => {
-            const name = p.firstname + ' ' + p.lastname;
-            const initials = AvatarHelper.getInitials(name);
-            return (
-              <TouchableOpacity key={i}
-                                  onPress={this.openAgenda.bind(this, p)}
-                                  underlayColor={'rgba(0, 0, 0, 0.054)'}>
-                <View style={styles.section}>
-                  <Text style={{...Typography.text70}}>{name}</Text>
-                  <Avatar containerStyle={{marginVertical: 5}} label={initials} />
-                </View>
-              </TouchableOpacity>
-            );
-          })
-        }
-      </ScrollView>
+      <TouchableOpacity onPress={this.openAgenda.bind(this, item)} underlayColor={'rgba(0, 0, 0, 0.054)'}>
+        <View style={styles.section}>
+          <Text style={{...Typography.text70}}>{name}</Text>
+          <Avatar containerStyle={{marginVertical: 5}} label={initials} />
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
+  render() {
+    return (
+      <ListView style={styles.people} dataSource={this.state.dataSource}
+                renderRow={this.renderRow}
+                enableEmptySections
+      />
     );
   }
 }
@@ -66,7 +65,8 @@ const styles = StyleSheet.create({
   },
   people: {
     flex: 1,
-    padding: 25,
+    paddingLeft: 25,
+    paddingRight: 25,
   },
   section: {
     flexDirection: 'row',
