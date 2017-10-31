@@ -8,8 +8,8 @@ import Models from './models';
 class Store {
   @persist('object', Models.Account) @observable current = new Models.Account;
   @persist @observable authorized = false;
-  @persist @observable state = SERVICE_STATES.done;
-  @persist @observable errorMessage = null;
+  @observable state = SERVICE_STATES.done;
+  @observable errorMessage = null;
 
   @action login = (email, password, cb) => {
     this.state = SERVICE_STATES.pending;
