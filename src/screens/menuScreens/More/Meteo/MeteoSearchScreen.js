@@ -18,6 +18,10 @@ var {height, width} = Dimensions.get('window');
 @inject('Weather') @observer
 export default class MeteoSearchScreen extends Component {
 
+  static navigatorStyle = {
+    tabBarHidden: true
+  };
+
   static propTypes = {
     navigator: PropTypes.object,
     Weather: PropTypes.object

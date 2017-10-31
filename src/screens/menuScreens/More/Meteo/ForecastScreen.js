@@ -15,6 +15,11 @@ import moment from 'moment';
 @inject('Weather') @observer
 export default class ForecastScreen extends Component {
 
+  static navigatorStyle = {
+    tabBarHidden: true
+  };
+
+
   static propTypes = {
     navigator: PropTypes.object,
   };

@@ -14,6 +14,10 @@ import { inject, observer } from 'mobx-react/native';
 @inject('Weather') @observer
 export default class TodayScreen extends Component {
 
+  static navigatorStyle = {
+    tabBarHidden: true
+  };
+
   static propTypes = {
     navigator: PropTypes.object,
   };
