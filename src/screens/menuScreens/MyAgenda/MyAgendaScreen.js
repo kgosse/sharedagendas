@@ -83,8 +83,7 @@ export default class MyAgendaScreen extends Component {
               animated: false,
               backButtonHidden: true,
             });
-          } else if (this.state.requestAgenda && !Agendas.userAgenda) {
-            this.setState({requestAgenda: false});
+          } else {
             Agendas.getUserAgenda(Account.current.agenda);
           }
           break;

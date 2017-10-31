@@ -59,8 +59,8 @@ export default class MoreScreen extends Component {
     return (
       <ScrollView style={styles.container}>
         <Row title={'Meteo'} onPress={this.openMeteoScreen}/>
-        <Row title={'Sync with google calendar'} onPress={this.nothing}/>
-        <Row title={'Account'} onPress={this.nothing}/>
+        {/*<Row title={'Sync with google calendar'} onPress={this.nothing}/>*/}
+        {/*<Row title={'Account'} onPress={this.nothing}/>*/}
         <Row title={'Users'} onPress={this.openPeopleScreen}/>
         <Row title={'Log out'} onPress={this.handleLogout}/>
         <Toast
