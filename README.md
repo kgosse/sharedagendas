@@ -21,6 +21,7 @@ If you didn't install react-native-cli, you can do it this way
 42sh> git clone git@github.com:kgosse/sharedagendas.git
 42sh> cd sharedagendas
 42sh> npm i
+42sh> react-native link
 ```
 
 ### Running your project
